@@ -7,27 +7,24 @@ const { exec } = require('child_process')
 const execAsync = promisify(exec)
 const writeFileAsync = promisify(writeFile)
 
-function dateMinusGivenDays(days) {
+const dateMinusGivenDays = days => {
   const d = new Date()
   d.setDate(d.getDate() - days)
   return d
 }
 
-async function touchFile(path) {
-  return await writeFileAsync(path, Math.random())
-}
+const touchFile = async path => await writeFileAsync(path, Math.random())
 
-async function addChange(change) {
-  return await execAsync(`git add ${change}`)
-}
+const addChange = async change => await execAsync(`git add ${change}`)
 
-async function makeCommitInPast(date, message) {
-  return await execAsync(
-    `GIT_AUTHOR_DATE='${date}' GIT_COMMITTER_DATE='${date}' git commit --author='BrianDGLS <briandgls92@gmail.com>' -m '${message}'`
-  )
-}
+const makeCommitInPast = async (date, message) =>
+  await execAsync(`
+    GIT_AUTHOR_DATE='${date}' 
+    GIT_COMMITTER_DATE='${date}' 
+    git commit --author='BrianDGLS <briandgls92@gmail.com>' -m '${message}'
+  `)
 
-async function applyChanges(limit) {
+const applyChanges = async limit => {
   const file = join(__dirname, 'temp.txt')
   const date = dateMinusGivenDays(limit)
   await touchFile(file)
@@ -35,11 +32,8 @@ async function applyChanges(limit) {
   await makeCommitInPast(date, Math.random())
 }
 
-async function execute() {
-  let count = 366
-  while(count--) {
-    await applyChanges(count)
-  }
+const execute = async count => {
+  while (count--) await applyChanges(count)
 }
 
-execute()
+execute(366)
