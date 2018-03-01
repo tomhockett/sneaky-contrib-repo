@@ -6,9 +6,9 @@ const { exec } = require('child_process')
 const execAsync = promisify(exec)
 const writeFileAsync = promisify(writeFile)
 
-const AUTHOR = 'github_username'
-const EMAIL = 'github_email'
-const DAYS_TO_GENERATE = 366
+const AUTHOR = 'BrianDGLS'
+const EMAIL = 'briandgls92@gmail.com'
+const DAYS_TO_GENERATE = 14
 
 const dateMinusGivenDays = days => {
   const d = new Date()
@@ -21,11 +21,7 @@ const touchFile = async path => await writeFileAsync(path, Math.random())
 const addChange = async change => await execAsync(`git add ${change}`)
 
 const makeCommitInPast = async (date, message) =>
-  await execAsync(`
-    GIT_AUTHOR_DATE='${date}' 
-    GIT_COMMITTER_DATE='${date}' 
-    git commit --author='${AUTHOR} <${EMAIL}>' -m '${message}'
-  `)
+  await execAsync(`GIT_AUTHOR_DATE='${date}' GIT_COMMITTER_DATE='${date}' git commit --author='${AUTHOR} <${EMAIL}>' -m '${message}'`)
 
 const applyChanges = async limit => {
   const file = join(__dirname, 'temp.txt')
