@@ -8,6 +8,7 @@ const writeFileAsync = promisify(writeFile)
 
 const AUTHOR = 'github_username'
 const EMAIL = 'github_email'
+const DAYS_TO_GENERATE = 366
 
 const dateMinusGivenDays = days => {
   const d = new Date()
@@ -38,4 +39,4 @@ const execute = async count => {
   while (count--) await applyChanges(count)
 }
 
-execute(366)
+execute(DAYS_TO_GENERATE)
