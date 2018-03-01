@@ -1,4 +1,3 @@
-//@ts-check
 const { join } = require('path')
 const { writeFile } = require('fs')
 const { promisify } = require('util')
@@ -6,6 +5,9 @@ const { exec } = require('child_process')
 
 const execAsync = promisify(exec)
 const writeFileAsync = promisify(writeFile)
+
+const AUTHOR = 'github_username'
+const EMAIL = 'github_email'
 
 const dateMinusGivenDays = days => {
   const d = new Date()
@@ -21,7 +23,7 @@ const makeCommitInPast = async (date, message) =>
   await execAsync(`
     GIT_AUTHOR_DATE='${date}' 
     GIT_COMMITTER_DATE='${date}' 
-    git commit --author='BrianDGLS <briandgls92@gmail.com>' -m '${message}'
+    git commit --author='${AUTHOR} <${EMAIL}>' -m '${message}'
   `)
 
 const applyChanges = async limit => {
