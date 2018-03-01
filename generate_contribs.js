@@ -6,9 +6,9 @@ const { exec } = require('child_process')
 const execAsync = promisify(exec)
 const writeFileAsync = promisify(writeFile)
 
-const AUTHOR = 'BrianDGLS'
-const EMAIL = 'briandgls92@gmail.com'
-const DAYS_TO_GENERATE = 14
+const AUTHOR = 'username'
+const EMAIL = 'email'
+const DAYS_TO_GENERATE = 365
 
 const dateMinusGivenDays = days => {
   const d = new Date()
